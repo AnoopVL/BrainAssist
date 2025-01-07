@@ -7,15 +7,14 @@ require("dotenv").config();
 
 const app = express();
 
-// Middleware to parse JSON payloads
 app.use(express.json());
 
 app.post("/api/v1/signup", async (req, res) => {
   const requireBody = z.object({
-    email: z.string().email(), // Validate as an email
-    password: z.string().min(6), // Ensure password is at least 6 characters
-    firstName: z.string().min(1), // Ensure firstName is non-empty
-    lastName: z.string().min(1), // Ensure lastName is non-empty
+    email: z.string().email(),
+    password: z.string().min(6),
+    firstName: z.string().min(1),
+    lastName: z.string().min(1),
   });
 
   const parsedDataWithSuccess = requireBody.safeParse(req.body);
@@ -36,12 +35,11 @@ app.post("/api/v1/signup", async (req, res) => {
       email,
       password: hashedPassword,
       firstName,
-      lastName, // Corrected to match schema
+      lastName,
     });
     res.status(201).send({ message: "User Signup successful" });
   } catch (err: any) {
     if (err.code === 11000) {
-      // Handle unique constraint violation for email
       res.status(409).send({ message: "Email already exists" });
     } else {
       res.status(500).send({ message: "Error creating user", error: err });
