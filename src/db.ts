@@ -53,7 +53,7 @@ type ContentType = "image" | "video" | "article" | "audio";
 //   userId: { type: Types.ObjectId, ref: "User", required: true },
 // });
 
-const conetentSchema: Schema<Content> = new Schema<Content>({
+const contentSchema: Schema<Content> = new Schema<Content>({
   link: { type: String, required: true },
   type: {
     type: String,
@@ -61,8 +61,8 @@ const conetentSchema: Schema<Content> = new Schema<Content>({
     required: true,
   },
   title: { type: String, required: true },
-  tags: [{ type: Types.ObjectId, ref: "Tag" }],
-  userId: { type: Types.ObjectId, ref: "User", required: true },
+  tags: [{ type: Schema.Types.ObjectId, ref: "Tag" }],
+  userId: { type: Schema.Types.ObjectId, ref: "User", required: true },
 });
 
 export const UserModel: Model<IUser> = mongoose.model<IUser>(
@@ -72,4 +72,7 @@ export const UserModel: Model<IUser> = mongoose.model<IUser>(
 
 export const TagModel: Model<Tag> = mongoose.model<Tag>("Tag", tagSchema);
 
-export const ContentModel: Model<Content> = mongoose.model<Content>("Content", conetentSchema);
+export const ContentModel: Model<Content> = mongoose.model<Content>(
+  "Content",
+  contentSchema
+);
