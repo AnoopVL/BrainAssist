@@ -19,14 +19,13 @@ const bcrypt_1 = __importDefault(require("bcrypt"));
 const db_1 = require("./db");
 require("dotenv").config();
 const app = (0, express_1.default)();
-// Middleware to parse JSON payloads
 app.use(express_1.default.json());
 app.post("/api/v1/signup", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const requireBody = zod_1.z.object({
-        email: zod_1.z.string().email(), // Validate as an email
-        password: zod_1.z.string().min(6), // Ensure password is at least 6 characters
-        firstName: zod_1.z.string().min(1), // Ensure firstName is non-empty
-        lastName: zod_1.z.string().min(1), // Ensure lastName is non-empty
+        email: zod_1.z.string().email(),
+        password: zod_1.z.string().min(6),
+        firstName: zod_1.z.string().min(1),
+        lastName: zod_1.z.string().min(1),
     });
     const parsedDataWithSuccess = requireBody.safeParse(req.body);
     if (!parsedDataWithSuccess.success) {
@@ -43,13 +42,12 @@ app.post("/api/v1/signup", (req, res) => __awaiter(void 0, void 0, void 0, funct
             email,
             password: hashedPassword,
             firstName,
-            lastName, // Corrected to match schema
+            lastName,
         });
         res.status(201).send({ message: "User Signup successful" });
     }
     catch (err) {
         if (err.code === 11000) {
-            // Handle unique constraint violation for email
             res.status(409).send({ message: "Email already exists" });
         }
         else {

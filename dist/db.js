@@ -33,14 +33,39 @@ var __importStar = (this && this.__importStar) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UserModel = void 0;
+exports.ContentModel = exports.TagModel = exports.UserModel = void 0;
 const mongoose_1 = __importStar(require("mongoose"));
-// Define the User schema
-const UserSchema = new mongoose_1.Schema({
-    email: { type: String, unique: true, required: true }, // Ensure email is required
-    password: { type: String, required: true }, // Ensure password is required
-    firstName: { type: String, required: true }, // Ensure firstName is required
-    lastName: { type: String, required: true }, // Ensure lastName is required
+const userSchema = new mongoose_1.Schema({
+    email: { type: String, unique: true, required: true },
+    password: { type: String, required: true },
+    firstName: { type: String, required: true },
+    lastName: { type: String, required: true },
 });
-// Create the User model
-exports.UserModel = mongoose_1.default.model("User", UserSchema);
+const tagSchema = new mongoose_1.Schema({
+    title: { type: String, required: true, unique: true },
+});
+// const contentSchema = new Schema<Content>({
+//   link: { type: String, required: true },
+//   type: {
+//     type: String,
+//     enum: ["image", "video", "article", "audio"],
+//     required: true,
+//   },
+//   title: { type: String, required: true },
+//   tags: [{ type: Types.ObjectId, ref: "Tag" }],
+//   userId: { type: Types.ObjectId, ref: "User", required: true },
+// });
+const contentSchema = new mongoose_1.Schema({
+    link: { type: String, required: true },
+    type: {
+        type: String,
+        enum: ["image", "video", "article", "audio"],
+        required: true,
+    },
+    title: { type: String, required: true },
+    tags: [{ type: mongoose_1.Schema.Types.ObjectId, ref: "Tag" }],
+    userId: { type: mongoose_1.Schema.Types.ObjectId, ref: "User", required: true },
+});
+exports.UserModel = mongoose_1.default.model("User", userSchema);
+exports.TagModel = mongoose_1.default.model("Tag", tagSchema);
+exports.ContentModel = mongoose_1.default.model("Content", contentSchema);
