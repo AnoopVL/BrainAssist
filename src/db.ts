@@ -1,78 +1,58 @@
-import mongoose, { Schema, Document, Model, Types } from "mongoose";
-// import { enum } from "zod";
-import { enumUtil } from "zod/lib/helpers/enumUtil";
-// import { Schema, Document, Model } from "mongoose";
-// import { Schema, Document } from "mongoose";
+// Importing the required modules and functions from Mongoose
+import mongoose, { model, Schema } from "mongoose";
 
-interface IUser extends Document {
-  email: string;
-  password: string;
-  firstName: string;
-  lastName: string;
-}
+// Connecting to the MongoDB database using a connection string
+mongoose.connect(
+  "mongodb+srv://admin:1234rewq@demo1.cpr8n.mongodb.net/brainassist"
+);
 
-interface Content extends Document {
-  link: string;
-  type: string | ContentType;
-  title: string;
-  tags: Types.ObjectId[];
-  userId: Types.ObjectId;
-}
-
-interface Link extends Document {
-  hash: string;
-  userId: Types.ObjectId;
-}
-
-interface Tag extends Document {
-  title: string;
-}
-
-const userSchema: Schema<IUser> = new Schema<IUser>({
-  email: { type: String, unique: true, required: true },
-  password: { type: String, required: true },
-  firstName: { type: String, required: true },
-  lastName: { type: String, required: true },
+// Defining a schema for the 'User' collection
+// Each user will have a unique 'username' and a 'password'
+const UserSchema = new Schema({
+  username: { type: String, unique: true }, // Unique username to ensure no duplicates
+  password: { type: String }, // Password for the user
 });
 
-const tagSchema: Schema<Tag> = new Schema<Tag>({
-  title: { type: String, required: true, unique: true },
+// Creating a model for the 'User' collection, enabling interactions with the database
+export const UserModel = model("User", UserSchema);
+
+// Defining a schema for the 'Content' collection
+// Each content will have a 'title', a 'Link', an array of 'tags', and a reference to a 'userId'
+const ContentSchema = new Schema({
+  title: String, // Title of the content
+  Link: String, // URL or link to the content
+  tags: [{ type: mongoose.Types.ObjectId, ref: "tag" }], // Array of tag IDs, referencing the 'tag' collection
+  userId: [
+    {
+      type: mongoose.Types.ObjectId,
+      ref: "User",
+      required: true, // The 'userId' field is mandatory to link content to a user
+    },
+  ],
 });
 
-type ContentType = "image" | "video" | "article" | "audio";
+// Creating a model for the 'Content' collection to interact with the database
+export const ContentModel = model("Content", ContentSchema);
 
-// const contentSchema = new Schema<Content>({
-//   link: { type: String, required: true },
-//   type: {
-//     type: String,
-//     enum: ["image", "video", "article", "audio"],
-//     required: true,
-//   },
-//   title: { type: String, required: true },
-//   tags: [{ type: Types.ObjectId, ref: "Tag" }],
-//   userId: { type: Types.ObjectId, ref: "User", required: true },
-// });
+// Importing the Schema and model from Mongoose
+// Mongoose is a library that provides a schema-based solution for modeling application data
+const LinkSchema = new Schema({
+  // 'hash' is a string that represents the shortened or hashed version of a link
+  hash: String,
 
-const contentSchema: Schema<Content> = new Schema<Content>({
-  link: { type: String, required: true },
-  type: {
-    type: String,
-    enum: ["image", "video", "article", "audio"],
+  // 'userId' is a reference to the 'User' collection in the database.
+  // It uses Mongoose's ObjectId type for relational data.
+  // The 'ref' property specifies the referenced collection name ('User').
+  // The 'required' property ensures this field must be provided when creating a document.
+  // The 'unique' property enforces that each 'userId' in this collection is unique.
+  userId: {
+    type: mongoose.Types.ObjectId,
+    ref: "User",
     required: true,
+    unique: true,
   },
-  title: { type: String, required: true },
-  tags: [{ type: Schema.Types.ObjectId, ref: "Tag" }],
-  userId: { type: Schema.Types.ObjectId, ref: "User", required: true },
 });
 
-export const UserModel: Model<IUser> = mongoose.model<IUser>(
-  "User",
-  userSchema
-);
-
-export const TagModel: Model<Tag> = mongoose.model<Tag>("Tag", tagSchema);
-
-export const ContentModel: Model<Content> = mongoose.model<Content>(
-  "Content",
-  contentSchema
-);
+// Exporting the LinkModel based on the LinkSchema
+// The model represents the 'Links' collection in the database
+export const LinkModel = model("Links", LinkSchema);
