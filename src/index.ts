@@ -60,30 +60,31 @@ app.post("/api/v1/content", userMiddleware, async (req, res) => {
   res.json({ message: "Content added" }); // Send success response.
 });
 
-// // Route 4: Get User Content
-// app.get("/api/v1/content", userMiddleware, async (req, res) => {
-//   //@ts-ignore
-//   const userId = req.userId; // User ID is fetched from middleware
-//   // Fetch all content associated with the user ID and populate username
-//   // The `populate` function is used to include additional details from the referenced `userId`.
-//   // For example, it will fetch the username linked to the userId.
-//   // Since we specified "username", only the username will be included in the result,
-//   // and other details like password won’t be fetched.
-//   const content = await ContentModel.find({ userId: userId }).populate(
-//     "userId",
-//     "username"
-//   );
-//   res.json(content); // Send the content as response
-// });
+// Route 4: Get User Content
+app.get("/api/v1/content", userMiddleware, async (req, res) => {
+  //@ts-ignore
+  const userId = req.userId; // User ID is fetched from middleware
+  // Fetch all content associated with the user ID and populate username
+  // The `populate` function is used to include additional details from the referenced `userId`.
+  // For example, it will fetch the username linked to the userId.
+  // Since we specified "username", only the username will be included in the result,
+  // and other details like password won’t be fetched.
+  const content = await ContentModel.find({ userId: userId }).populate(
+    "userId",
+    "username"
+  );
+  res.json(content); // Send the content as response
+});
 
-// // Route 5: Delete User Content
-// app.delete("/api/v1/content", userMiddleware, async (req, res) => {
-//   const contentId = req.body.contentId;
+// Route 5: Delete User Content
+app.delete("/api/v1/content", userMiddleware, async (req, res) => {
+  const contentId = req.body.contentId;
 
-//   // Delete content based on contentId and userId.
-//   await ContentModel.deleteMany({ contentId, userId: req.userId });
-//   res.json({ message: "Deleted" }); // Send success response.
-// });
+  // Delete content based on contentId and userId.
+  // @ts-ignore
+  await ContentModel.deleteMany({ contentId, userId: req.userId });
+  res.json({ message: "Deleted" }); // Send success response.
+});
 
 // // Route 6: Share Content Link
 // app.post("/api/v1/brain/share", userMiddleware, async (req, res) => {

@@ -67,21 +67,18 @@ app.post("/api/v1/content", middleware_1.userMiddleware, (req, res) => __awaiter
     });
     res.json({ message: "Content added" }); // Send success response.
 }));
-// // Route 4: Get User Content
-// app.get("/api/v1/content", userMiddleware, async (req, res) => {
-//   //@ts-ignore
-//   const userId = req.userId; // User ID is fetched from middleware
-//   // Fetch all content associated with the user ID and populate username
-//   // The `populate` function is used to include additional details from the referenced `userId`.
-//   // For example, it will fetch the username linked to the userId.
-//   // Since we specified "username", only the username will be included in the result,
-//   // and other details like password won’t be fetched.
-//   const content = await ContentModel.find({ userId: userId }).populate(
-//     "userId",
-//     "username"
-//   );
-//   res.json(content); // Send the content as response
-// });
+// Route 4: Get User Content
+app.get("/api/v1/content", middleware_1.userMiddleware, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    //@ts-ignore
+    const userId = req.userId; // User ID is fetched from middleware
+    // Fetch all content associated with the user ID and populate username
+    // The `populate` function is used to include additional details from the referenced `userId`.
+    // For example, it will fetch the username linked to the userId.
+    // Since we specified "username", only the username will be included in the result,
+    // and other details like password won’t be fetched.
+    const content = yield db_1.ContentModel.find({ userId: userId }).populate("userId", "username");
+    res.json(content); // Send the content as response
+}));
 // // Route 5: Delete User Content
 // app.delete("/api/v1/content", userMiddleware, async (req, res) => {
 //   const contentId = req.body.contentId;
