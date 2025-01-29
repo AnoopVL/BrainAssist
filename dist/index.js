@@ -16,6 +16,7 @@ const express_1 = __importDefault(require("express"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const db_1 = require("./db");
 const config_1 = require("./config");
+const middleware_1 = require("./middleware");
 const cors_1 = __importDefault(require("cors"));
 const app = (0, express_1.default)();
 app.use(express_1.default.json()); // Middleware to parse JSON request bodies.
@@ -53,18 +54,19 @@ app.post("/api/v1/signin", (req, res) => __awaiter(void 0, void 0, void 0, funct
     }
 }));
 // Route 3: Add Content
-// app.post("/api/v1/content", userMiddleware, async (req, res) => {
-//   const { link, type, title } = req.body;
-//   // Create a new content entry linked to the logged-in user.
-//   await ContentModel.create({
-//     link,
-//     type,
-//     title,
-//     userId: req.userId, // userId is added by the middleware.
-//     tags: [], // Initialize tags as an empty array.
-//   });
-//   res.json({ message: "Content added" }); // Send success response.
-// });
+app.post("/api/v1/content", middleware_1.userMiddleware, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { link, type, title } = req.body;
+    // Create a new content entry linked to the logged-in user.
+    yield db_1.ContentModel.create({
+        link,
+        type,
+        title,
+        // @ts-ignore
+        userId: req.userId, // userId is added by the middleware.
+        tags: [], // Initialize tags as an empty array.
+    });
+    res.json({ message: "Content added" }); // Send success response.
+}));
 // // Route 4: Get User Content
 // app.get("/api/v1/content", userMiddleware, async (req, res) => {
 //   //@ts-ignore

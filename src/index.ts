@@ -45,19 +45,20 @@ app.post("/api/v1/signin", async (req, res) => {
 });
 
 // Route 3: Add Content
-// app.post("/api/v1/content", userMiddleware, async (req, res) => {
-//   const { link, type, title } = req.body;
-//   // Create a new content entry linked to the logged-in user.
-//   await ContentModel.create({
-//     link,
-//     type,
-//     title,
-//     userId: req.userId, // userId is added by the middleware.
-//     tags: [], // Initialize tags as an empty array.
-//   });
+app.post("/api/v1/content", userMiddleware, async (req, res) => {
+  const { link, type, title } = req.body;
+  // Create a new content entry linked to the logged-in user.
+  await ContentModel.create({
+    link,
+    type,
+    title,
+    // @ts-ignore
+    userId: req.userId, // userId is added by the middleware.
+    tags: [], // Initialize tags as an empty array.
+  });
 
-//   res.json({ message: "Content added" }); // Send success response.
-// });
+  res.json({ message: "Content added" }); // Send success response.
+});
 
 // // Route 4: Get User Content
 // app.get("/api/v1/content", userMiddleware, async (req, res) => {
