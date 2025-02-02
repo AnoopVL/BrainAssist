@@ -2,6 +2,7 @@ import { ReactElement, useState } from "react";
 
 // Defining the properties that the Button component can accept
 interface ButtonProps {
+  variant: "primary" | "secondary";
   text: string;
   startIcon?: ReactElement;
   onClick?: () => void;
@@ -21,6 +22,7 @@ const defaultStyles =
 
 // The Button functional component
 export function Button({
+  variant,
   text,
   startIcon,
   onClick,
@@ -30,12 +32,17 @@ export function Button({
   // State to track hover status
   const [isHovered, setIsHovered] = useState(false);
 
+  // Determine the current variant based on hover state
+  const currentVariant = isHovered
+    ? variant === "primary"
+      ? "secondary"
+      : "primary"
+    : variant;
+
   return (
     <button
       onClick={onClick}
-      className={`${
-        isHovered ? variantClasses.secondary : variantClasses.primary
-      } 
+      className={`${variantClasses[currentVariant]} 
         ${defaultStyles} 
         ${fullWidth ? "w-full flex justify-center items-center" : ""} 
         ${loading ? "opacity-45 cursor-not-allowed" : ""}`}

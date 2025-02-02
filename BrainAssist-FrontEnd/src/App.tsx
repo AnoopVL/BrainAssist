@@ -11,7 +11,7 @@ function App() {
     <>
       <Button
         loading={false}
-        variant="primary"
+        variant="secondary"
         text="Signin"
         fullWidth={true}
       />
