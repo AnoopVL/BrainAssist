@@ -1,4 +1,4 @@
-import { ShareIcon } from "../icons/ShareIcon";
+import { ShareIcon } from "../../icons/ShareIcon";
 
 interface CardProps {
   title: string; // Title of the card, e.g., video or tweet title

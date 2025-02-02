@@ -1,6 +1,6 @@
-import { Logo } from "../icons/Logo";
-import { TwitterIcon } from "../icons/TwitterIcon";
-import { YoutubeIcon } from "../icons/YoutubeIcon";
+import { Logo } from "../../icons/Logo";
+import { TwitterIcon } from "../../icons/TwitterIcon";
+import { YoutubeIcon } from "../../icons/YoutubeIcon";
 import { SidebarItem } from "./SidebarItem";
 
 export function Sidebar() {

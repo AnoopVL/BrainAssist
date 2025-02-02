@@ -1,8 +1,8 @@
 import { useRef, useState } from "react"; // Importing React hooks for state management and refs
-import { CrossIcon } from "../icons/CrossIcon"; // Importing the close icon
+import { CrossIcon } from "../../icons/CrossIcon"; // Importing the close icon
 import { Button } from "./Button"; // Importing the Button component
 import { Input } from "./Input"; // Importing the Input component for form inputs
-import { BACKEND_URL } from "../config"; // Importing the backend URL for API requests
+import { BACKEND_URL } from "../../config";
 import axios from "axios"; // Importing axios for HTTP requests
 
 // Enum to represent different types of content
