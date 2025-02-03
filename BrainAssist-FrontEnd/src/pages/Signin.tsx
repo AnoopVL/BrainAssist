@@ -55,6 +55,11 @@ export function Signin() {
             fullWidth={true}
           />
         </div>
+        <div
+          className="flex justify-center pt-4 cursor-pointer text-blue-600 hover:underline"
+          onClick={() => navigate("/signup")}>
+          Sign-up now!!
+        </div>
       </div>
     </div>
   );
