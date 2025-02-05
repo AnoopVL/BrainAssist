@@ -57,13 +57,42 @@ export function Card({ title, link, type }: CardProps) {
           {type === "youtube" && (
             <iframe
               className="w-full"
-              src={getYouTubeEmbedUrl(link)}
+              src={(() => {
+                let videoId = "";
+                if (link.includes("youtu.be/")) {
+                  // Extract video ID from short URL
+                  videoId = link.split("youtu.be/")[1]?.split(/[?&]/)[0];
+                } else if (link.includes("watch?v=")) {
+                  // Extract video ID from standard YouTube URL
+                  videoId = link.split("watch?v=")[1]?.split("&")[0];
+                }
+                return `https://www.youtube.com/embed/${videoId}`;
+              })()}
               title="YouTube video player"
               frameBorder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
               referrerPolicy="strict-origin-when-cross-origin"
               allowFullScreen></iframe>
           )}
+
+          {/* {type === "youtube" && (
+            // <iframe
+            //   width="560"
+            //   height="315"
+            //   src="https://www.youtube.com/embed/YOUTUBE_VIDEO_ID"
+            //   title="YouTube video player"
+            //   frameBorder="0"
+            //   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            //   allowFullScreen></iframe>
+            <iframe
+              className="w-full"
+              src={getYouTubeEmbedUrl(link)}
+              title="YouTube video player"
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerPolicy="strict-origin-when-cross-origin"
+              allowFullScreen></iframe>
+          )} */}
 
           {/* Render Twitter embed if type is "twitter" */}
           {type === "twitter" && (
