@@ -25,6 +25,6 @@
 
 ### How the front-end would look like
 
-![Alt text](image.png)
-
-![Alt text](image-1.png)
+![Alt text](ss-landingPage.png)
+![Alt text](ss-Dashboard.png)
+![Alt text](ss-share.png)
