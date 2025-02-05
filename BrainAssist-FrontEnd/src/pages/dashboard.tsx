@@ -8,6 +8,7 @@ import { Sidebar } from "../components/ui/Sidebar"; // Importing Sidebar compone
 import { useContent } from "../hooks/UseContent";
 import { BACKEND_URL } from "../config"; // Backend URL for API requests
 import axios from "axios"; // Importing axios for making HTTP requests
+import { useCallback } from "react";
 
 // Dashboard component that renders the main page
 export function Dashboard() {
@@ -21,6 +22,12 @@ export function Dashboard() {
   useEffect(() => {
     refresh();
   }, [modalOpen]);
+
+  // useEffect(() => {
+  //   refresh().then(() => {
+  //     console.log("Contents after refresh:", contents);
+  //   });
+  // }, [modalOpen]);
 
   return (
     <div>

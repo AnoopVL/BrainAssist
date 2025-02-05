@@ -2,10 +2,19 @@ import axios from "axios"; // Importing axios for making HTTP requests
 import { useEffect, useState } from "react"; // Importing useEffect and useState from React
 import { BACKEND_URL } from "../config"; // Importing the backend URL from configuration
 
+interface ContentItem {
+  _id: string;
+  title: string;
+  link: string;
+  type: "twitter" | "youtube";
+  tags: string[];
+}
+
 // Custom hook to manage and fetch content data
 export function useContent() {
   // State to hold the fetched content
-  const [contents, setContents] = useState([]);
+  // const [contents, setContents] = useState([]);
+  const [contents, setContents] = useState<ContentItem[]>([]);
 
   // Function to refresh and fetch content from the backend
   function refresh() {
@@ -22,11 +31,21 @@ export function useContent() {
       //   // setContents(response.data.contents);
       //   setContents(response.data.content);
       // })
+      // .then((response) => {
+      //   console.log("API Response:", response.data);
+      //   // @ts-ignore
+      //   setContents(response.data.content);
+      // })
       .then((response) => {
         console.log("API Response:", response.data);
-        // @ts-ignore
-        setContents(response.data.content);
+        if (Array.isArray(response.data)) {
+          setContents(response.data as ContentItem[]); // ✅ Type assertion
+        } else {
+          console.error("Unexpected API response structure:", response.data);
+          setContents([]);
+        }
       })
+
       .catch((error) => {
         // Handle any error that occurs during the request (optional)
         console.error("Error fetching content:", error);

@@ -8,6 +8,10 @@ interface CardProps {
 
 // The Card component represents a styled card that can display either a YouTube video or a Twitter embed based on the type prop.
 export function Card({ title, link, type }: CardProps) {
+  const getYouTubeEmbedUrl = (url: string) => {
+    const videoId = new URL(url).searchParams.get("v");
+    return videoId ? `https://www.youtube.com/embed/${videoId}` : url;
+  };
   return (
     <div>
       {/* Card Container */}
@@ -40,10 +44,20 @@ export function Card({ title, link, type }: CardProps) {
         {/* Content Section */}
         <div className="pt-4">
           {/* Render YouTube embed if type is "youtube" */}
-          {type === "youtube" && (
+          {/* {type === "youtube" && (
             <iframe
               className="w-full"
               src={link.replace("watch", "embed").replace("?v=", "/")}
+              title="YouTube video player"
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerPolicy="strict-origin-when-cross-origin"
+              allowFullScreen></iframe>
+          )} */}
+          {type === "youtube" && (
+            <iframe
+              className="w-full"
+              src={getYouTubeEmbedUrl(link)}
               title="YouTube video player"
               frameBorder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
