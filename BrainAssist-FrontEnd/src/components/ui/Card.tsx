@@ -8,10 +8,10 @@ interface CardProps {
 
 // The Card component represents a styled card that can display either a YouTube video or a Twitter embed based on the type prop.
 export function Card({ title, link, type }: CardProps) {
-  const getYouTubeEmbedUrl = (url: string) => {
-    const videoId = new URL(url).searchParams.get("v");
-    return videoId ? `https://www.youtube.com/embed/${videoId}` : url;
-  };
+  // const getYouTubeEmbedUrl = (url: string) => {
+  //   const videoId = new URL(url).searchParams.get("v");
+  //   return videoId ? `https://www.youtube.com/embed/${videoId}` : url;
+  // };
   return (
     <div>
       {/* Card Container */}

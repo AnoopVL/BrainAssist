@@ -8,11 +8,9 @@ import { Sidebar } from "../components/ui/Sidebar"; // Importing Sidebar compone
 import { useContent } from "../hooks/UseContent";
 import { BACKEND_URL } from "../config"; // Backend URL for API requests
 import axios from "axios"; // Importing axios for making HTTP requests
-import { useCallback } from "react";
 
 // Dashboard component that renders the main page
 export function Dashboard() {
-  const [error, setError] = useState(null);
   // State to manage the modal visibility
   const [modalOpen, setModalOpen] = useState(false);
   // Custom hook to fetch content and refresh the content list
