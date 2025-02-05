@@ -13,11 +13,17 @@ export function useContent() {
       .get(`${BACKEND_URL}/api/v1/content`, {
         // Making GET request to the backend API
         headers: {
-          Authorization: localStorage.getItem("token"), // Including the token from localStorage for authentication
+          authorization: localStorage.getItem("token"), // Including the token from localStorage for authentication
         },
       })
+      // .then((response) => {
+      //   // If the request is successful, update the contents state with the fetched data
+      //   // @ts-ignore
+      //   // setContents(response.data.contents);
+      //   setContents(response.data.content);
+      // })
       .then((response) => {
-        // If the request is successful, update the contents state with the fetched data
+        console.log("API Response:", response.data);
         // @ts-ignore
         setContents(response.data.content);
       })

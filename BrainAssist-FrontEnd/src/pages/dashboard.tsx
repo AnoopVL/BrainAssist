@@ -11,6 +11,7 @@ import axios from "axios"; // Importing axios for making HTTP requests
 
 // Dashboard component that renders the main page
 export function Dashboard() {
+  const [error, setError] = useState(null);
   // State to manage the modal visibility
   const [modalOpen, setModalOpen] = useState(false);
   // Custom hook to fetch content and refresh the content list
@@ -51,7 +52,7 @@ export function Dashboard() {
                 },
                 {
                   headers: {
-                    Authorization: localStorage.getItem("token"), // Passing the authorization token in the request header
+                    authorization: localStorage.getItem("token"), // Passing the authorization token in the request header
                   },
                 }
               );
@@ -68,9 +69,13 @@ export function Dashboard() {
 
         <div className="flex gap-4 flex-wrap">
           {/* Rendering the content cards dynamically from the 'contents' array */}
-          {contents.map(({ type, link, title }) => (
-            <Card type={type} link={link} title={title} />
-          ))}
+          {contents && contents.length > 0 ? (
+            contents.map(({ type, link, title }, index) => (
+              <Card key={index} type={type} link={link} title={title} />
+            ))
+          ) : (
+            <p>No content available</p>
+          )}
         </div>
       </div>
     </div>
