@@ -23,12 +23,6 @@ export function Dashboard() {
     refresh();
   }, [modalOpen]);
 
-  // useEffect(() => {
-  //   refresh().then(() => {
-  //     console.log("Contents after refresh:", contents);
-  //   });
-  // }, [modalOpen]);
-
   return (
     <div>
       <Sidebar /> {/* Sidebar component for navigation */}

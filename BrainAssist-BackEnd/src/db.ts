@@ -3,7 +3,7 @@ import mongoose, { model, Schema } from "mongoose";
 
 // Connecting to the MongoDB database using a connection string
 mongoose.connect(
-  "mongodb+srv://admin:1234rewq@demo1.cpr8n.mongodb.net/brainassist"
+  "mongodb+srv://avlanjekar4:AiqYN9uhkZQ3pVwB@assist-brain.0vdrt.mongodb.net/brainassist"
 );
 
 // Defining a schema for the 'User' collection

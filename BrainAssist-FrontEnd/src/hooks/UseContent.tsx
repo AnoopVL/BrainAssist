@@ -25,17 +25,7 @@ export function useContent() {
           authorization: localStorage.getItem("token"), // Including the token from localStorage for authentication
         },
       })
-      // .then((response) => {
-      //   // If the request is successful, update the contents state with the fetched data
-      //   // @ts-ignore
-      //   // setContents(response.data.contents);
-      //   setContents(response.data.content);
-      // })
-      // .then((response) => {
-      //   console.log("API Response:", response.data);
-      //   // @ts-ignore
-      //   setContents(response.data.content);
-      // })
+
       .then((response) => {
         console.log("API Response:", response.data);
         if (Array.isArray(response.data)) {
