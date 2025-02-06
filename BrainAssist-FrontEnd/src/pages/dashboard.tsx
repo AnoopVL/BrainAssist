@@ -6,8 +6,8 @@ import { PlusIcon } from "../icons/PlusIcon"; // Importing Plus icon for the 'Ad
 import { ShareIcon } from "../icons/ShareIcon"; // Importing Share icon for the 'Share brain' button
 import { Sidebar } from "../components/ui/Sidebar"; // Importing Sidebar component for navigation
 import { useContent } from "../hooks/UseContent";
-import { BACKEND_URL } from "../config"; // Backend URL for API requests
 import axios from "axios"; // Importing axios for making HTTP requests
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL as string;
 
 // Dashboard component that renders the main page
 export function Dashboard() {

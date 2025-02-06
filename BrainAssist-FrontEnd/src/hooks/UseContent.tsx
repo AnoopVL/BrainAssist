@@ -1,6 +1,6 @@
 import axios from "axios"; // Importing axios for making HTTP requests
 import { useEffect, useState } from "react"; // Importing useEffect and useState from React
-import { BACKEND_URL } from "../config"; // Importing the backend URL from configuration
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL as string;
 
 interface ContentItem {
   _id: string;

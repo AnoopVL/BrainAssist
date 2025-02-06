@@ -2,3 +2,5 @@
 .env
 /BrainAssist-FrontEnd/node_modules
 BrainAssist-BackEnd/dist/
+BrainAssist-BackEnd/.env
+BrainAssist-FrontEnd/.env

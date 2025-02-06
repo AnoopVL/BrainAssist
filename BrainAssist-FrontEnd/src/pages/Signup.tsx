@@ -1,10 +1,9 @@
 import { useRef } from "react"; // Importing useRef to create references for the input fields
 import { Button } from "../components/ui/Button"; // Importing Button component for the submit button
 import { Input } from "../components/ui/Input"; // Importing Input component for form fields
-
 import axios from "axios"; // Importing axios for making HTTP requests
-import { BACKEND_URL } from "../config"; // Importing the backend URL from config
 import { useNavigate } from "react-router-dom"; // Importing useNavigate hook for routing
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL as string;
 
 // Signup component to handle user registration
 export function Signup() {

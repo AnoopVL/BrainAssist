@@ -1,8 +1,11 @@
 // Importing required types and modules from "express" and "jsonwebtoken".
 import { NextFunction, Request, Response } from "express";
-import { JWT_SECRET } from "./config"; // Importing the JWT secret key from a configuration file.
+// import { JWT_SECRET } from "./config"; // Importing the JWT secret key from a configuration file.
 import jwt from "jsonwebtoken"; // Importing the jsonwebtoken library for token verification.
+import dotenv from "dotenv";
+dotenv.config();
 
+const JWT_SECRET = process.env.JWT_SECRET as string;
 // Middleware to validate user authentication using a JWT token.
 export const userMiddleware = async (
   req: Request,

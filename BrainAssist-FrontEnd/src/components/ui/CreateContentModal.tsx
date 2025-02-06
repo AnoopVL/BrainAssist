@@ -2,8 +2,9 @@ import { useRef, useState } from "react"; // Importing React hooks for state man
 import { CrossIcon } from "../../icons/CrossIcon"; // Importing the close icon
 import { Button } from "./Button"; // Importing the Button component
 import { Input } from "./Input"; // Importing the Input component for form inputs
-import { BACKEND_URL } from "../../config";
+// import { BACKEND_URL } from "../../config";
 import axios from "axios"; // Importing axios for HTTP requests
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL as string;
 
 // Enum to represent different types of content
 enum ContentType {

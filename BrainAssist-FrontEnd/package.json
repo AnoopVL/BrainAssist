@@ -11,7 +11,9 @@
   },
   "dependencies": {
     "@types/axios": "^0.9.36",
+    "@types/dotenv": "^6.1.1",
     "axios": "^1.7.9",
+    "dotenv": "^16.4.7",
     "lucide-react": "^0.474.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
