@@ -16,6 +16,7 @@
     "@ljharb/tsconfig": "^0.2.3",
     "@types/mongoose": "^5.11.96",
     "bcrypt": "^5.1.1",
+    "cloudinary": "^1.21.0",
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
