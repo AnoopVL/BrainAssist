@@ -1,10 +1,22 @@
 // Importing the required modules and functions from Mongoose
 import mongoose, { model, Schema } from "mongoose";
+import dotenv from "dotenv";
+dotenv.config();
 
+const MONGO_URI = process.env.MONGO_URI as string;
 // Connecting to the MongoDB database using a connection string
-mongoose.connect(
-  "mongodb+srv://avlanjekar4:AiqYN9uhkZQ3pVwB@assist-brain.0vdrt.mongodb.net/brainassist"
-);
+if (!MONGO_URI) {
+  throw new Error("MONGO_URI is not defined in .env file");
+}
+
+// Connecting to the MongoDB database using MONGO_URI from .env
+mongoose
+  .connect(MONGO_URI)
+  .then(() => console.log("MongoDB Connected Successfully"))
+  .catch((error) => {
+    console.error("MongoDB Connection Error:", error);
+    process.exit(1);
+  });
 
 // Defining a schema for the 'User' collection
 // Each user will have a unique 'username' and a 'password'

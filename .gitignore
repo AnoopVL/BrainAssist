@@ -1,4 +1,4 @@
 /BrainAssist-BackEnd/node_modules/
 .env
 /BrainAssist-FrontEnd/node_modules
-/BrainAssist-BackEnd/dist
+BrainAssist-BackEnd/dist/
