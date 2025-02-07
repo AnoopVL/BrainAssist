@@ -8,8 +8,15 @@ import cors from "cors";
 
 const app = express();
 app.use(express.json()); // Middleware to parse JSON request bodies.
-app.use(cors()); // Middleware to allow cross-origin requests.
-
+// app.use(cors()); // Middleware to allow cross-origin requests.
+app.use(
+  cors({
+    origin: "https://brain-assist-1vcw4d9r0-anoopvls-projects.vercel.app", // Your frontend's URL
+    methods: "GET,POST,DELETE,PUT",
+    allowedHeaders: "Content-Type,Authorization",
+    credentials: true,
+  })
+);
 // Route 1: User Signup
 app.post("/api/v1/signup", async (req, res) => {
   // TODO: Use zod or a similar library for input validation.
