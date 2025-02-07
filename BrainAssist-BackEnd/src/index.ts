@@ -17,23 +17,30 @@ app.use(
     credentials: true,
   })
 );
-// Route 1: User Signup
-app.post("/api/v1/signup", async (req, res) => {
+
+app.use((req, res, next) => {
   res.setHeader(
     "Access-Control-Allow-Origin",
     "https://brain-assist.vercel.app"
-  ); // Explicitly set allowed origin
+  );
   res.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
-
+  next();
+});
+// Route 1: User Signup
+app.post("/api/v1/signup", async (req, res) => {
+  // TODO: Use zod or a similar library for input validation.
+  // TODO: Hash the password before storing it in the database.
   const username = req.body.username;
   const password = req.body.password;
 
   try {
+    // Create a new user with the provided username and password.
     await UserModel.create({ username, password });
-    res.status(201).json({ message: "User signed up" });
+    res.json({ message: "User signed up" }); // Send success response.
   } catch (e) {
-    res.status(409).json({ message: "User already exists" });
+    // Handle errors like duplicate usernames.
+    res.status(409).json({ message: "User already exists" }); // Conflict status.
   }
 });
 
