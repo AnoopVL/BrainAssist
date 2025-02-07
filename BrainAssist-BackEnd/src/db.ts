@@ -9,14 +9,13 @@ if (!MONGO_URI) {
   throw new Error("MONGO_URI is not defined in .env file");
 }
 
-// Connecting to the MongoDB database using MONGO_URI from .env
 mongoose
-  .connect(MONGO_URI)
+  .connect(MONGO_URI, {
+    serverSelectionTimeoutMS: 5000, // Timeout after 5s
+    socketTimeoutMS: 45000, // Keep connection alive
+  })
   .then(() => console.log("MongoDB Connected Successfully"))
-  .catch((error) => {
-    console.error("MongoDB Connection Error:", error);
-    process.exit(1);
-  });
+  .catch((err) => console.error("MongoDB Connection Error:", err));
 
 // Defining a schema for the 'User' collection
 // Each user will have a unique 'username' and a 'password'
