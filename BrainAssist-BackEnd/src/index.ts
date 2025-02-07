@@ -11,15 +11,15 @@ app.use(express.json()); // Middleware to parse JSON request bodies.
 // app.use(cors()); // Middleware to allow cross-origin requests.
 app.use(
   cors({
-    origin: [
-      "https://brain-assist.vercel.app",
-      "https://brain-assist-kty1.vercel.app",
-    ],
+    origin: "*", // Allow all origins for now
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true,
   })
 );
+
+// Make sure this is placed BEFORE your route definitions
+app.options("*", cors()); // Enable pre-flight requests for all routes
 
 app.use((req, res, next) => {
   res.setHeader(
@@ -30,6 +30,8 @@ app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
   next();
 });
+
+app.options("/api/v1/signup", cors()); // Enable pre-flight request for signup route
 // Route 1: User Signup
 app.post("/api/v1/signup", async (req, res) => {
   // TODO: Use zod or a similar library for input validation.
