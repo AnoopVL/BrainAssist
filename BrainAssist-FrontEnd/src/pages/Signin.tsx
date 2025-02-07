@@ -19,9 +19,10 @@ export function Signin() {
     const username = usernameRef.current?.value; // Get the value from the username input field
     console.log(usernameRef.current); // Log the username reference for debugging (optional)
     const password = passwordRef.current?.value; // Get the value from the password input field
+    console.log("Backend URL:", BACKEND_URL); // Add this line to check the URL
 
     // Send POST request to the backend API for signin
-    await axios.post(`${BACKEND_URL}/api/v1/signin`, { username, password });
+    await axios.post(`${BACKEND_URL}api/v1/signin`, { username, password });
 
     // Extract the JWT token from the response and store it in localStorage
     // @ts-ignore

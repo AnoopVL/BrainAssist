@@ -30,10 +30,11 @@ export function CreateContentModal({ open, onClose }: CreateContentModalProps) {
   async function addContent() {
     const title = titleRef.current?.value; // Getting the title value from the input
     const link = linkRef.current?.value; // Getting the link value from the input
+    console.log("Backend URL:", BACKEND_URL); // Add this line to check the URL
 
     // Making a POST request to add new content
     await axios.post(
-      `${BACKEND_URL}/api/v1/content`,
+      `${BACKEND_URL}api/v1/content`,
       {
         link,
         title,

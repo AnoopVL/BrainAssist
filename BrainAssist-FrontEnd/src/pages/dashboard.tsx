@@ -45,7 +45,7 @@ export function Dashboard() {
             onClick={async () => {
               // Making a POST request to share the brain content
               const response = await axios.post(
-                `${BACKEND_URL}/api/v1/brain/share`,
+                `${BACKEND_URL}api/v1/brain/share`,
                 {
                   share: true,
                 },

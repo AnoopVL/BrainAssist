@@ -16,25 +16,24 @@ export function Signup() {
 
   // signup function to handle user registration
   async function signup() {
-    const username = usernameRef.current?.value; // Get the value from the username input field
-    console.log(usernameRef.current); // Log the username reference for debugging (optional)
-    const password = passwordRef.current?.value; // Get the value from the password input field
-
-    // Send POST request to the backend API for signup
-    // await axios.post(BACKEND_URL + "/api/v1/signup", {
-    //   username, // Send username as part of the request
-    //   password, // Send password as part of the request
-    // });
+    const username = usernameRef.current?.value;
+    const password = passwordRef.current?.value;
 
     console.log("Backend URL:", BACKEND_URL); // Add this line to check the URL
 
-    await axios.post(`${BACKEND_URL}/api/v1/signup`, { username, password });
+    try {
+      // Remove any trailing slash from BACKEND_URL
+      const apiUrl = `${BACKEND_URL.replace(/\/$/, "")}/api/v1/signup`;
+      console.log("API URL:", apiUrl); // Log the full API URL
 
-    // Navigate to the signin page after successful signup
-    navigate("/signin");
-
-    // Display an alert message to inform the user that the signup was successful
-    alert("You have signed up!");
+      const response = await axios.post(apiUrl, { username, password });
+      console.log("Signup response:", response.data);
+      navigate("/signin");
+      alert("You have signed up!");
+    } catch (error) {
+      console.error("Signup error:", error);
+      alert("Signup failed. Please check the console for more details.");
+    }
   }
 
   // JSX to render the signup form

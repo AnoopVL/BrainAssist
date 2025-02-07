@@ -18,8 +18,10 @@ export function useContent() {
 
   // Function to refresh and fetch content from the backend
   function refresh() {
+    console.log("Backend URL:", BACKEND_URL); // Add this line to check the URL
+
     axios
-      .get(`${BACKEND_URL}/api/v1/content`, {
+      .get(`${BACKEND_URL}api/v1/content`, {
         // Making GET request to the backend API
         headers: {
           authorization: localStorage.getItem("token"), // Including the token from localStorage for authentication

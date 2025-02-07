@@ -11,9 +11,12 @@ app.use(express.json()); // Middleware to parse JSON request bodies.
 // app.use(cors()); // Middleware to allow cross-origin requests.
 app.use(
   cors({
-    origin: ["https://brain-assist.vercel.app"], // Allow frontend domain
-    methods: "GET,POST,PUT,DELETE,OPTIONS",
-    allowedHeaders: "Content-Type,Authorization",
+    origin: [
+      "https://brain-assist.vercel.app",
+      "https://brain-assist-kty1.vercel.app",
+    ],
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true,
   })
 );
