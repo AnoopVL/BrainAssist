@@ -26,6 +26,8 @@ export function Signup() {
     //   password, // Send password as part of the request
     // });
 
+    console.log("Backend URL:", BACKEND_URL); // Add this line to check the URL
+
     await axios.post(`${BACKEND_URL}/api/v1/signup`, { username, password });
 
     // Navigate to the signin page after successful signup
