@@ -19,32 +19,38 @@ export function Signup() {
     const username = usernameRef.current?.value;
     const password = passwordRef.current?.value;
 
-    console.log("Backend URL:", BACKEND_URL);
-
     try {
-      const apiUrl = `${BACKEND_URL}api/v1/signup`;
-      console.log("API URL:", apiUrl);
-
+      const apiUrl = `${BACKEND_URL.replace(/\/$/, "")}/api/v1/signup`;
       const response = await axios.post(
         apiUrl,
         { username, password },
         {
+          withCredentials: true,
           headers: {
             "Content-Type": "application/json",
           },
         }
       );
+
       console.log("Signup response:", response.data);
       navigate("/signin");
       alert("You have signed up!");
     } catch (error) {
-      console.error("Signup error:", error);
       if ((error as any).isAxiosError) {
-        console.error("Response data:", (error as any).response?.data);
-        console.error("Response status:", (error as any).response?.status);
-        console.error("Response headers:", (error as any).response?.headers);
+        console.error("Signup error:", {
+          message: (error as any).message,
+          response: (error as any).response?.data,
+          status: (error as any).response?.status,
+        });
+        alert(
+          `Signup failed: ${
+            (error as any).response?.data?.message || (error as any).message
+          }`
+        );
+      } else {
+        console.error("Signup error:", error);
+        alert("An unexpected error occurred during signup");
       }
-      alert("Signup failed. Please check the console for more details.");
     }
   }
 

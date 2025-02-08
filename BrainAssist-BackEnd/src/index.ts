@@ -9,26 +9,14 @@ import cors from "cors";
 const app = express();
 app.use(express.json()); // Middleware to parse JSON request bodies.
 // app.use(cors()); // Middleware to allow cross-origin requests.
-const allowedOrigins = [
-  "https://brain-assist.vercel.app",
-  "https://brain-assist-kty1.vercel.app",
-];
-
 app.use(
   cors({
-    origin: function (origin, callback) {
-      if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
+    origin: "https://brain-assist.vercel.app", // Your frontend URL
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true,
   })
 );
-
 // Make sure this is placed BEFORE your route definitions
 app.options("*", cors()); // Enable pre-flight requests for all routes
 
