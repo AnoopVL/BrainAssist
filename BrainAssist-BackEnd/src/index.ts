@@ -4,31 +4,34 @@ import jwt from "jsonwebtoken";
 import { ContentModel, LinkModel, UserModel } from "./db";
 import { JWT_SECRET } from "./config";
 import { userMiddleware } from "./middleware";
+import { corsMiddleware } from "./middleware";
 import cors from "cors";
 
 const app = express();
 app.use(express.json()); // Middleware to parse JSON request bodies.
 // app.use(cors()); // Middleware to allow cross-origin requests.
-app.use(
-  cors({
-    origin: "https://brain-assist.vercel.app", // Your frontend URL
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"],
-    credentials: true,
-  })
-);
-// Make sure this is placed BEFORE your route definitions
-app.options("*", cors()); // Enable pre-flight requests for all routes
 
-app.use((req, res, next) => {
-  res.setHeader(
-    "Access-Control-Allow-Origin",
-    "https://brain-assist.vercel.app"
-  );
-  res.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
-  next();
-});
+const corsOptions = {
+  origin: "https://brain-assist.vercel.app",
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+  credentials: true,
+  optionsSuccessStatus: 200, // Add this line
+};
+
+app.use(cors(corsOptions));
+
+// app.use(
+//   cors({
+//     origin: "https://brain-assist.vercel.app", // Your frontend URL
+//     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+//     allowedHeaders: ["Content-Type", "Authorization"],
+//     credentials: true,
+//   })
+// );
+// Make sure this is placed BEFORE your route definitions
+
+app.use(corsMiddleware); // Add the corsMiddleware as a middleware function
 
 app.options("/api/v1/signup", cors()); // Enable pre-flight request for signup route
 // Route 1: User Signup
