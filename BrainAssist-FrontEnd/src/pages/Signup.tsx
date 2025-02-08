@@ -22,7 +22,7 @@ export function Signup() {
     console.log("Backend URL:", BACKEND_URL);
 
     try {
-      const apiUrl = `${BACKEND_URL}/api/v1/signup`;
+      const apiUrl = `${BACKEND_URL}api/v1/signup`;
       console.log("API URL:", apiUrl);
 
       const response = await axios.post(
