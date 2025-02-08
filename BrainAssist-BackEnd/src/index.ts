@@ -9,12 +9,15 @@ import cors from "cors";
 const app = express();
 app.use(express.json()); // Middleware to parse JSON request bodies.
 // app.use(cors()); // Middleware to allow cross-origin requests.
-const allowedOrigins = ["https://brain-assist.vercel.app"];
+const allowedOrigins = [
+  "https://brain-assist.vercel.app",
+  "https://brain-assist-kty1.vercel.app",
+];
 
 app.use(
   cors({
     origin: function (origin, callback) {
-      if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+      if (!origin || allowedOrigins.includes(origin)) {
         callback(null, true);
       } else {
         callback(new Error("Not allowed by CORS"));
