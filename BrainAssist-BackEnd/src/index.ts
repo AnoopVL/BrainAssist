@@ -9,9 +9,17 @@ import cors from "cors";
 const app = express();
 app.use(express.json()); // Middleware to parse JSON request bodies.
 // app.use(cors()); // Middleware to allow cross-origin requests.
+const allowedOrigins = ["https://brain-assist.vercel.app"];
+
 app.use(
   cors({
-    origin: "*", // Allow all origins for now
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true,
@@ -34,18 +42,17 @@ app.use((req, res, next) => {
 app.options("/api/v1/signup", cors()); // Enable pre-flight request for signup route
 // Route 1: User Signup
 app.post("/api/v1/signup", async (req, res) => {
-  // TODO: Use zod or a similar library for input validation.
-  // TODO: Hash the password before storing it in the database.
+  console.log("Received signup request:", req.body);
   const username = req.body.username;
   const password = req.body.password;
 
   try {
-    // Create a new user with the provided username and password.
     await UserModel.create({ username, password });
-    res.json({ message: "User signed up" }); // Send success response.
+    console.log("User created successfully");
+    res.json({ message: "User signed up" });
   } catch (e) {
-    // Handle errors like duplicate usernames.
-    res.status(409).json({ message: "User already exists" }); // Conflict status.
+    console.error("Error creating user:", e);
+    res.status(409).json({ message: "User already exists" });
   }
 });
 
