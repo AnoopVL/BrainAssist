@@ -25,7 +25,7 @@ app.use(express.json()); // Middleware to parse JSON request bodies.
 // app.use(corsMiddleware); // Add the corsMiddleware as a middleware function
 
 // Route 1: User Signup
-app.post("/api/v1/signup", async (req, res) => {
+app.post("/api/signup", async (req, res) => {
   console.log("Received signup request:", req.body);
   const username = req.body.username;
   const password = req.body.password;
@@ -41,7 +41,7 @@ app.post("/api/v1/signup", async (req, res) => {
 });
 
 // Route 2: User Signin
-app.post("/api/v1/signin", async (req, res) => {
+app.post("/api/signin", async (req, res) => {
   const username = req.body.username;
   const password = req.body.password;
 
@@ -58,7 +58,7 @@ app.post("/api/v1/signin", async (req, res) => {
 });
 
 // Route 3: Add Content
-app.post("/api/v1/content", userMiddleware, async (req, res) => {
+app.post("/api/content", userMiddleware, async (req, res) => {
   const { link, type, title } = req.body;
   // Create a new content entry linked to the logged-in user.
   await ContentModel.create({
@@ -74,7 +74,7 @@ app.post("/api/v1/content", userMiddleware, async (req, res) => {
 });
 
 // Route 4: Get User Content
-app.get("/api/v1/content", userMiddleware, async (req, res) => {
+app.get("/api/content", userMiddleware, async (req, res) => {
   //@ts-ignore
   const userId = req.userId; // User ID is fetched from middleware
   // Fetch all content associated with the user ID and populate username
