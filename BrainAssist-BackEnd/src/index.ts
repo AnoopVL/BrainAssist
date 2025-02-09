@@ -21,7 +21,7 @@ app.use(express.json()); // Middleware to parse JSON request bodies.
 // };
 
 // app.use(cors(corsOptions));
-
+// 1st BE prod deleted
 // app.use(corsMiddleware); // Add the corsMiddleware as a middleware function
 
 // Route 1: User Signup
