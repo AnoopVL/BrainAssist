@@ -4,8 +4,8 @@ import jwt from "jsonwebtoken";
 import { ContentModel, LinkModel, UserModel } from "./db";
 import { JWT_SECRET } from "./config";
 import { userMiddleware } from "./middleware";
-import { corsMiddleware } from "./middleware";
-import cors from "cors";
+// import { corsMiddleware } from "./middleware";
+// import cors from "cors";
 import { Request, Response, NextFunction } from "express";
 
 const app = express();
@@ -22,7 +22,7 @@ app.use(express.json()); // Middleware to parse JSON request bodies.
 
 // app.use(cors(corsOptions));
 
-app.use(corsMiddleware); // Add the corsMiddleware as a middleware function
+// app.use(corsMiddleware); // Add the corsMiddleware as a middleware function
 
 // Route 1: User Signup
 app.post("/api/v1/signup", async (req, res) => {
