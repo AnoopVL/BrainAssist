@@ -6,34 +6,24 @@ import { JWT_SECRET } from "./config";
 import { userMiddleware } from "./middleware";
 import { corsMiddleware } from "./middleware";
 import cors from "cors";
+import { Request, Response, NextFunction } from "express";
 
 const app = express();
 app.use(express.json()); // Middleware to parse JSON request bodies.
 // app.use(cors()); // Middleware to allow cross-origin requests.
 
-const corsOptions = {
-  origin: "https://brain-assist.vercel.app",
-  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization"],
-  credentials: true,
-  optionsSuccessStatus: 200, // Add this line
-};
+// const corsOptions = {
+//   origin: "https://brain-assist.vercel.app",
+//   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+//   allowedHeaders: ["Content-Type", "Authorization"],
+//   credentials: true,
+//   optionsSuccessStatus: 200, // Add this line
+// };
 
-app.use(cors(corsOptions));
-
-// app.use(
-//   cors({
-//     origin: "https://brain-assist.vercel.app", // Your frontend URL
-//     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-//     allowedHeaders: ["Content-Type", "Authorization"],
-//     credentials: true,
-//   })
-// );
-// Make sure this is placed BEFORE your route definitions
+// app.use(cors(corsOptions));
 
 app.use(corsMiddleware); // Add the corsMiddleware as a middleware function
 
-app.options("/api/v1/signup", cors()); // Enable pre-flight request for signup route
 // Route 1: User Signup
 app.post("/api/v1/signup", async (req, res) => {
   console.log("Received signup request:", req.body);
